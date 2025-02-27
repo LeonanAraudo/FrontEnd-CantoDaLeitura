@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-        <div v-if="store.isLoading">Carregando...</div>
-        <div v-for="livro in store.livros" :key="index" class="card">
+        <div v-for="livro in store.livros" :key="livro.id" class="card">
             <div class="autorContainer">
                 <p class="autor">{{ livro.autor }}</p>
             </div>
@@ -35,10 +34,9 @@
 
 <script setup>
 import { usaBiblioteca } from '@/stores/counter';
-import { ref } from 'vue';
+import { ref , onMounted} from 'vue';
 
-const store = usaBiblioteca()
-const livros = ref([]);
+const store = usaBiblioteca();
 const modalAberto = ref(false);
 const livroSelecionado = ref({});
 
@@ -47,13 +45,17 @@ const abrirEdicao = (livro) => {
     modalAberto.value = true;
 };
 
-const salvarEdicao = () => {
-  store.editarLivro(livroSelecionado.value); 
-  modalAberto.value = false;
+const salvarEdicao = async () => {
+    store.editarLivro(livroSelecionado.value.id, livroSelecionado.value);
+    modalAberto.value = false;
 };
+
 const fecharModal = () => {
     modalAberto.value = false;
 };
+onMounted(() => {
+  store.fetchLivros(); 
+});
 </script>
 
 <style scoped>

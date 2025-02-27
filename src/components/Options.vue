@@ -24,12 +24,15 @@
   
   const store = usaBiblioteca()
   const loadLivros = () =>{
-    store.fetchLivros
+    store.fetchLivros()
   }
   const mudançaContent = ref('content1');
   
   const mudar = (content) => {
     mudançaContent.value = content;
+    if(content === 'conten2'){
+      loadLivros()
+    }
   };
   </script>
   

@@ -51,10 +51,28 @@ export const usaBiblioteca = defineStore("biblioteca", () => {
     autores.value.push(autor);
   };
 
-  const editarLivro = (livroEditado) => {
-    const index = livros.value.findIndex((livro) => livro.id === livroEditado.id);
-    if (index !== -1) {
-      livros.value[index] = { ...livroEditado };
+  const editarLivro = async (id, livroEditado) => {
+    try {
+      // Enviar os dados do livro para a API para atualização
+      const resposta = await fetch(`https://sua-api.com/editar-livro/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(livroEditado),
+      });
+
+      if (!resposta.ok) {
+        throw new Error("Erro ao editar o livro. Tente novamente.");
+      }
+
+      // Atualizar o livro no store localmente
+      const index = livros.value.findIndex((livro) => livro.id === id);
+      if (index !== -1) {
+        livros.value[index] = { ...livros.value[index], ...livroEditado };
+      }
+
+      alert("Livro editado com sucesso!");
+    } catch (erro) {
+      alert(erro.message);
     }
   };
 
