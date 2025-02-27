@@ -1,10 +1,15 @@
 <template>
     <div class="container">
-        <div v-for="(livro, index) in livros" :key="index" class="card">
+        <div v-if="store.isLoading">Carregando...</div>
+        <div v-for="livro in store.livros" :key="index" class="card">
+            <div class="autorContainer">
+                <p class="autor">{{ livro.autor }}</p>
+            </div>
             <div class="titleCard">
                 <p>{{ livro.titulo }}</p>
             </div>
             <div class="editCard">
+                <p>{{ livro.data }}</p>
                 <img 
                     width="22" height="22" 
                     src="https://img.icons8.com/metro/26/edit.png" 
@@ -16,42 +21,26 @@
         <div v-if="modalAberto" class="modal">
             <div class="modal-content">
                 <h3>Editar Livro</h3>
-                <input v-model="livroSelecionado.titulo" placeholder="Editar título" />
-                <button @click="salvarEdicao">Salvar</button>
-                <button @click="fecharModal">Cancelar</button>
+                <input class="input" v-model="livroSelecionado.titulo" placeholder="Editar título" />
+                <input class="input" v-model="livroSelecionado.data" type="date"/>
+                <select class="input" v-model="livroSelecionado.autor" name="" id="">
+                    <option v-for="(livro, index) in livros" :key="index" :value="livro.autor">{{ livro.autor }}</option>
+                </select>
+                <button @click="salvarEdicao" class="buttonEdit">Salvar</button>
+                <button @click="fecharModal" class="buttonEdit" >Cancelar</button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { usaBiblioteca } from '@/stores/counter';
+import { ref } from 'vue';
 
+const store = usaBiblioteca()
 const livros = ref([]);
 const modalAberto = ref(false);
 const livroSelecionado = ref({});
-
-onMounted(() => {
-    livros.value = [
-        { id: 1, titulo: "O Senhor dos Anéis as reliquias da " },
-        { id: 2, titulo: "Game of Thrones" },
-        { id: 3, titulo: "Dark Souls - História" },
-        { id: 1, titulo: "O Senhor dos Anéis" },
-        { id: 2, titulo: "Game of Thrones" },
-        { id: 3, titulo: "Dark Souls - História" },
-        { id: 1, titulo: "O Senhor dos Anéis" },
-        { id: 2, titulo: "Game of Thrones" },
-        { id: 1, titulo: "O Senhor dos Anéis" },
-        { id: 2, titulo: "Game of Thrones" },
-        { id: 3, titulo: "Dark Souls - História" },
-        { id: 1, titulo: "O Senhor dos Anéis" },
-        { id: 2, titulo: "Game of Thrones" },
-        { id: 3, titulo: "Dark Souls - História" },
-        { id: 1, titulo: "O Senhor dos Anéis" },
-        { id: 2, titulo: "Game of Thrones" },
-        { id: 3, titulo: "Dark Souls - História" }
-    ];
-});
 
 const abrirEdicao = (livro) => {
     livroSelecionado.value = { ...livro }; 
@@ -59,13 +48,9 @@ const abrirEdicao = (livro) => {
 };
 
 const salvarEdicao = () => {
-    const index = livros.value.findIndex(l => l.id === livroSelecionado.value.id);
-    if (index !== -1) {
-        livros.value[index].titulo = livroSelecionado.value.titulo;
-    }
-    modalAberto.value = false;
+  store.editarLivro(livroSelecionado.value); 
+  modalAberto.value = false;
 };
-
 const fecharModal = () => {
     modalAberto.value = false;
 };
@@ -77,12 +62,15 @@ const fecharModal = () => {
     font-family: "Montserrat";
     padding: 20px;
     display: flex;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 60px;
     flex-wrap: wrap;
 }
 .card {
     width: 200px;
-    height: 150px;
+    height: 200px;
     background-color: #fff;
     border-radius: 15px;
     display: flex;
@@ -101,8 +89,18 @@ const fecharModal = () => {
 }
 .editCard {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     cursor: pointer;
+}
+.autorContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input{
+    width: 100%;
+    height: 40px;
 }
 .modal {
     position: fixed;
@@ -114,13 +112,28 @@ const fecharModal = () => {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: "Montserrat";
 }
 .modal-content {
+    width: 400px;
+    height: 400px;
     background: white;
     padding: 20px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
+}
+.buttonEdit{
+    font-family: "Montserrat";
+    background-color: black;
+    color: #fff;
+    border: none;
+    width: 100%;
+    height: 2.5vw;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: "Montserrat";
+    font-size: 1.2vw;
 }
 </style>

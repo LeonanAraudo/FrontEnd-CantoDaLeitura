@@ -1,18 +1,18 @@
 <template>
-   <form class="formulario">
+   <form class="formulario" @submit="enviarFormulario">
     <div class="infos">
         <label class="label" for="NameBook">Título do livro</label>
-        <input class="titleInput" id="NameBook" type="text" placeholder="Insira o título do livro"/>
+        <input class="titleInput" id="NameBook" name="nameBook" type="text" required placeholder="Insira o título do livro"/>
     </div>
     <div class="doubleInfos">
         <div  class="infos">
             <label class="label2" for="DateBook">Data de publicação</label>
-            <input class="specialInput" id="DateBook" type="date"/>
+            <input class="specialInput" id="DateBook" name="dateBook" type="date" required/>
         </div>
         <div class="infos">
-            <label class="label2" for="DateBook">Autor do Livro</label>
-            <select class="specialInput" name="" id="">
-                <option value="opt1">Opção 1</option>
+            <label class="label2" for="AutorBook">Autor do Livro</label>
+            <select class="specialInput" name="autorBook" id="AutorBook" required>
+                <option v-for="autor in store.autores" key:autor.id :value="autor.id">{{ autor.name }}</option>
             </select>
         </div>
     </div>
@@ -20,15 +20,98 @@
         <button class="button" type="submit">Cadastrar</button>
     </div>
    </form>
+   <div v-if="cadAberto" class="containerAutor">
+        <div class="autorForm">
+            <h3>Cadastrar autor</h3>
+            <form @submit.prevent="cadastrarAutor" > 
+                <div>
+                    <input v-model="novoAutor" class="autorInput" type="text" placeholder="Escreva o nome do autor"/>
+                </div>
+                <div>
+                    <button class="buttons" type="submit">Cadastrar</button>
+                </div>
+            </form>
+            <button @click="fecharCadastro" class="buttons">Cancelar</button>
+        </div>
+    </div>
+   <div class="alingAutorCad">
+    <p class="blueText">Autor não cadastrado? <span class="openCad" @click="abrirCadastro">Cadastre aqui</span></p>
+   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { usaBiblioteca } from '@/stores/counter';
+
+const store = usaBiblioteca()
+const novoAutor = ref("");
+
+const dados = ref({
+  nameBook: "",
+  dateBook: "",
+  autorBook: "",
+});
+
+const cadastrarAutor = () => {
+  const autor = { id: Date.now(), name: novoAutor.value };
+  store.addAutor(autor);
+  cadastrarAutorNaApi()
+};
+
+const cadastrarAutorNaApi = async () => {
+  try {
+    const autorData = { name: novoAutor.value }; // Dados do autor para enviar à API
+
+    // Enviar para a API
+    const resposta = await fetch("https://sua-api.com/cadastrar-autor", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(autorData),
+    });
+
+    if (!resposta.ok) {
+      throw new Error("Erro ao cadastrar o autor. Tente novamente.");
+    }
+
+    alert("Autor cadastrado com sucesso!");
+    novoAutor.value = "";
+    cadAberto.value = false;
+  } catch (erro) {
+    alert(erro.message);
+  }
+};
+
+const enviarFormulario = async () => {
+  try {
+    const resposta = await fetch("https://sua-api.com/cadastrar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dados.value),
+    });
+
+    if (!resposta.ok) {
+      throw new Error("Erro ao cadastrar. Tente novamente.");
+    }
+    alert("Cadastro realizado com sucesso!");
+    dados.value = { nameBook: "", dateBook: "", autorBook: "" };
+} catch (erro) {
+    alert(erro.message);
+}
+};
+store.addLivro(dados.value)
+
+const cadAberto = ref(false);
+
+const abrirCadastro = () => (cadAberto.value = true);
+
+const fecharCadastro = () => (cadAberto.value = false);
 </script>
+
 
 <style scoped>
 .formulario{  
  width: 100%;
- height: 100%;
+ height: 90%;
  display: flex;
  align-items: center;
  justify-content: center;
@@ -66,6 +149,8 @@
     height: 2.5vw;
     border-radius: 5px;
     font-size: 1vw;
+    border: none;
+    outline: none;
 
 }
 .label{
@@ -99,5 +184,55 @@
     background-color: rgb(14, 14, 14);
 
 }
+.containerAutor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Montserrat";
+}
+.autorForm {
+    width: 400px;
+    height: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.autorInput{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 30px;
+}
+.buttons{
+    font-family: "Montserrat";
+    background-color: black;
+    color: #fff;
+    border: none;
+    width: 100%;
+    height: 2.5vw;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: "Montserrat";
+    font-size: 1.2vw;
+}
 
+.blueText{
+    color: rgb(122, 122, 122);
+    font-family: "Montserrat";
+    text-align: end;
+    margin-right: 10px;
+    font-size: 1vw;
+}
+.openCad{
+    color: #fff;
+    cursor: pointer;
+}
 </style>

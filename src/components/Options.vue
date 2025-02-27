@@ -20,7 +20,12 @@
   import Content1 from './Content1.vue';
   import { ref } from 'vue';
   import Content2 from './Content2.vue';
+  import { usaBiblioteca } from '@/stores/counter';
   
+  const store = usaBiblioteca()
+  const loadLivros = () =>{
+    store.fetchLivros
+  }
   const mudançaContent = ref('content1');
   
   const mudar = (content) => {
