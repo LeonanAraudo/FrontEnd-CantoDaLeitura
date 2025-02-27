@@ -2,13 +2,15 @@
     <div class="container">
         <div v-for="livro in store.livros" :key="livro.id" class="card">
             <div class="autorContainer">
-                <p class="autor">{{ livro.autor }}</p>
+                <p class="autor">
+                    {{ store.autores.find(autor => autor.id === livro.author)?.name || 'Autor desconhecido' }}
+                </p>
             </div>
             <div class="titleCard">
-                <p>{{ livro.titulo }}</p>
+                <p>{{ livro.title }}</p>
             </div>
             <div class="editCard">
-                <p>{{ livro.data }}</p>
+                <p>{{ livro.data_publicação }}</p>
                 <img 
                     width="22" height="22" 
                     src="https://img.icons8.com/metro/26/edit.png" 
@@ -20,11 +22,11 @@
         <div v-if="modalAberto" class="modal">
             <div class="modal-content">
                 <h3>Editar Livro</h3>
-                <input class="input" v-model="livroSelecionado.titulo" placeholder="Editar título" />
-                <input class="input" v-model="livroSelecionado.data" type="date"/>
-                <select class="input" v-model="livroSelecionado.autor" name="" id="">
-                    <option v-for="(livro, index) in livros" :key="index" :value="livro.autor">{{ livro.autor }}</option>
-                </select>
+                <input class="input" v-model="livroSelecionado.title" placeholder="Editar título" />
+                <input class="input" v-model="livroSelecionado.data_publicação" type="date"/>
+                <select class="input" v-model="livroSelecionado.author" name="author" id="AutorBook" required >
+                    <option v-for="autor in store.autores" key:autor.id :value="autor.id">{{ autor.name }}</option>
+                 </select>
                 <button @click="salvarEdicao" class="buttonEdit">Salvar</button>
                 <button @click="fecharModal" class="buttonEdit" >Cancelar</button>
             </div>
@@ -46,16 +48,23 @@ const abrirEdicao = (livro) => {
 };
 
 const salvarEdicao = async () => {
-    store.editarLivro(livroSelecionado.value.id, livroSelecionado.value);
+    store.editarLivro(livroSelecionado.value.id, {
+        ...livroSelecionado.value,
+        author_id: livroSelecionado.value.author 
+    });
     modalAberto.value = false;
+
 };
 
 const fecharModal = () => {
     modalAberto.value = false;
 };
+
 onMounted(() => {
   store.fetchLivros(); 
+  store.fetchAutores();
 });
+
 </script>
 
 <style scoped>

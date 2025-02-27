@@ -1,17 +1,17 @@
 <template>
-   <form class="formulario" @submit="enviarFormulario">
+   <form class="formulario" @submit="enviarFormulario($event)">
     <div class="infos">
         <label class="label" for="NameBook">Título do livro</label>
-        <input class="titleInput" id="NameBook" name="nameBook" type="text" required placeholder="Insira o título do livro"/>
+        <input class="titleInput" id="NameBook" v-model="dados.title" type="text" required placeholder="Insira o título do livro"/>
     </div>
     <div class="doubleInfos">
         <div  class="infos">
             <label class="label2" for="DateBook">Data de publicação</label>
-            <input class="specialInput" id="DateBook" name="dateBook" type="date" required/>
+            <input class="specialInput" id="DateBook" name="data_publicação"  v-model="dados.data_publicação" type="date" required/>
         </div>
         <div class="infos">
             <label class="label2" for="AutorBook">Autor do Livro</label>
-            <select class="specialInput" name="autorBook" id="AutorBook" required>
+            <select class="specialInput" name="author" id="AutorBook" required  v-model="dados.author">
                 <option v-for="autor in store.autores" key:autor.id :value="autor.id">{{ autor.name }}</option>
             </select>
         </div>
@@ -40,16 +40,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import { usaBiblioteca } from '@/stores/counter';
 
 const store = usaBiblioteca()
 const novoAutor = ref("");
 
+onMounted(() =>{
+store.fetchAutores()
+console.log(store.fetchAutores())
+});
+
 const dados = ref({
-  nameBook: "",
-  dateBook: "",
-  autorBook: "",
+  title: "",
+  data_publicação: "",
+  author: "",
 });
 
 const cadastrarAutor = () => {
@@ -60,20 +65,18 @@ const cadastrarAutor = () => {
 
 const cadastrarAutorNaApi = async () => {
   try {
-    const autorData = { name: novoAutor.value }; // Dados do autor para enviar à API
+    const autorData = { name: novoAutor.value }; 
 
-    // Enviar para a API
-    const resposta = await fetch("https://sua-api.com/cadastrar-autor", {
+    const resposta = await fetch("http://127.0.0.1:8000/authors/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(autorData),
     });
 
     if (!resposta.ok) {
-      throw new Error("Erro ao cadastrar o autor. Tente novamente.");
+      throw new Error("Erro ao cadastrar o autor");
     }
-
-    alert("Autor cadastrado com sucesso!");
+    alert("Autor cadastrado com sucesso");
     novoAutor.value = "";
     cadAberto.value = false;
   } catch (erro) {
@@ -81,24 +84,27 @@ const cadastrarAutorNaApi = async () => {
   }
 };
 
-const enviarFormulario = async () => {
+const enviarFormulario = async (event) => {
+    event.preventDefault();
+    console.log(dados.value)
   try {
-    const resposta = await fetch("https://sua-api.com/cadastrar", {
+    const response = await fetch("http://127.0.0.1:8000/books/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dados.value),
     });
+    console.log(response)
 
-    if (!resposta.ok) {
-      throw new Error("Erro ao cadastrar. Tente novamente.");
+    if (!response.ok) {
+      throw new Error("Erro ao cadastrar");
     }
-    alert("Cadastro realizado com sucesso!");
-    dados.value = { nameBook: "", dateBook: "", autorBook: "" };
+    alert("Cadastro realizado com sucesso");
+    dados.value = { title: "", data_publicação: "", author: "" };
+    store.addLivro(dados.value)
 } catch (erro) {
     alert(erro.message);
 }
 };
-store.addLivro(dados.value)
 
 const cadAberto = ref(false);
 
