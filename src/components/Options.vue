@@ -31,15 +31,17 @@
   .container {
     display: flex;
     width: 100%;
-    height: 85vh;
+    height: 30vw;
     flex-direction: row;
+    margin-top: 4%;
+    overflow: hidden;
   }  
   .content {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 50%;
-      height: 80%;
+      height: 100%;
     } 
     .content-box {
         width: 100%;
@@ -58,9 +60,9 @@
       width: 50%;
     }
     button {
-    padding: 14px 20px;
     width: 50%;
-    font-size: 18px;
+    height: 10%;
+    font-size: 1.3vw;
     cursor: pointer;
     background-color: #3a3a3a;
     color: white;

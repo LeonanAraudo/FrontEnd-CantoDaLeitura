@@ -13,10 +13,11 @@
 .container{
   width: 100%;
   height: 90px;
+  margin-bottom: 20px;
 }
 .logo{
-  width: 270px;
-  height: 90px;
+  width: 17vw;
+  height: 6vw;
   margin-left: 20px;
 }
 .imgLogo{
