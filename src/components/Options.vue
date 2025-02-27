@@ -5,7 +5,7 @@
               <Content1/>
             </div>
             <div v-if="mudançaContent === 'content2'" class="content-box">
-                
+                <Content2/>
             </div>
            
         </div>
@@ -19,6 +19,7 @@
   <script setup>
   import Content1 from './Content1.vue';
   import { ref } from 'vue';
+  import Content2 from './Content2.vue';
   
   const mudançaContent = ref('content1');
   
@@ -31,11 +32,13 @@
   .container {
     display: flex;
     width: 100%;
-    height: 30vw;
+    height: auto; 
+    min-height: 50vh; 
     flex-direction: row;
     margin-top: 4%;
     overflow: hidden;
-  }  
+}
+
   .content {
       display: flex;
       justify-content: center;
@@ -44,13 +47,12 @@
       height: 100%;
     } 
     .content-box {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(49, 49, 49, 0.5);
-    }
+    width: 100%;
+    height: 30vw; 
+
+    overflow-y: auto; 
+    background-color: rgba(49, 49, 49, 0.5);
+   }
     .buttons {
       display: flex;
       justify-content: space-around;
@@ -60,8 +62,9 @@
       width: 50%;
     }
     button {
+    font-family: "Montserrat";
     width: 50%;
-    height: 10%;
+    height: 13%;
     font-size: 1.3vw;
     cursor: pointer;
     background-color: #3a3a3a;
