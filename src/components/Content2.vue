@@ -220,5 +220,11 @@ onMounted(() => {
         height: 5vw;
         font-size: 2vw;
     }
+    .colocacao{
+        font-size: 10vw;
+    }
+    .colocados{
+        font-size: 3vw;
+    }
 }
 </style>
