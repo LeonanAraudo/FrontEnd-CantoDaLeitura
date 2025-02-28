@@ -25,5 +25,13 @@
   height: 100%;
   background-size: cover;
 }
-
+@media(max-width:600px){
+  .logo{
+    width:100vw;
+    height: 15vw;
+  }
+  .imgLogo{
+    width: 40%;
+  }
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <div class="content">
-          <div v-if="mudançaContent === 'content1'" class="content-box">
+           <div v-if="mudançaContent === 'content1'" class="content-box">
               <Content1/>
             </div>
             <div v-if="mudançaContent === 'content2'" class="content-box">
@@ -67,7 +67,7 @@
     padding: 20px;
     width: 50%;
   }
-  button {
+  button{
     font-family: "Montserrat";
     width: 50%;
     height: 13%;
@@ -82,6 +82,27 @@
     background-color: #0a0a0a;
     transition: all 0.3s;
     transform: scale(1.1);
+  }
+  @media(max-width: 600px){
+    .container{
+      flex-direction: column;
+    }
+    .content{
+      width: 100%;
+    }
+    .content-box{
+      height: 50vw;
+    }
+    .buttons{
+      width: 100%;
+      height: 150px;
+      gap: 20px;
+      flex-direction: row;
+    }
+    .button{
+      width: 100%;
+      height: 50%;
+    }
   }
   </style>
   
