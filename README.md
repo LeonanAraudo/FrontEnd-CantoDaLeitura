@@ -1,35 +1,12 @@
-# vue-project
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+<h1>Sistema FrontEnd de gerenciamento de Biblioteca</h1>
+<p>O sistema consiste em uma interface principal que alterna entre opções de cadastros e visualizações de livros</p>
+<h3>O FrontEnd foi hospedado na plataforma Vercel e esta disponivel para acesso em</h3>
+<link>https://desafio-front-end-obsis.vercel.app/</link>
+<nav>
+  <h3>Tecnologias usadas</h3>
+  <ul>
+    <li>Vue.js</li>
+    <li>JavaScript</li>
+    <li>Pinia</li>
+  </ul>
+</nav>
