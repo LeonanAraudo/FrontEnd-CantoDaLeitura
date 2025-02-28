@@ -8,5 +8,6 @@
     <li>Vue.js</li>
     <li>JavaScript</li>
     <li>Pinia</li>
+    <li>Vite</li>
   </ul>
 </nav>
