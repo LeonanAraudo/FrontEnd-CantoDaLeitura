@@ -65,7 +65,7 @@ const cadastrarAutor = () => {
 const cadastrarAutorNaApi = async () => {
   try {
     const autorData = { name: novoAutor.value }; 
-    const response = await fetch("http://127.0.0.1:8000/authors/", {
+    const response = await fetch("https://desafio-backend-obsis.onrender.com/authors/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(autorData),
@@ -86,7 +86,7 @@ const enviarFormulario = async (event) => {
     event.preventDefault();
     console.log(dados.value)
   try {
-    const response = await fetch("http://127.0.0.1:8000/books/", {
+    const response = await fetch("https://desafio-backend-obsis.onrender.com/books/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dados.value),

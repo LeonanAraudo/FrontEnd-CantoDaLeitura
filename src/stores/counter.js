@@ -22,7 +22,7 @@ export const usaBiblioteca = defineStore("biblioteca", () => {
   const fetchLivros = async () => {
     error.value = null;
     try {
-      const response = await fetch("http://127.0.0.1:8000/books/",{
+      const response = await fetch("https://desafio-backend-obsis.onrender.com/books/",{
         method: 'GET',
         headers: { "Content-Type": "application/json" },
       });
@@ -39,7 +39,7 @@ export const usaBiblioteca = defineStore("biblioteca", () => {
   const fetchAutores = async () => {
     error.value = null;
     try {
-      const response = await fetch("http://127.0.0.1:8000/authors/",{
+      const response = await fetch("https://desafio-backend-obsis.onrender.com/authors/",{
         method: 'GET',
         headers: { "Content-Type": "application/json" },
       });
@@ -56,7 +56,7 @@ export const usaBiblioteca = defineStore("biblioteca", () => {
   const fetchTopAutores = async () => {
     error.value = null;
     try {
-      const response = await fetch("http://127.0.0.1:8000/authors/tops/",{
+      const response = await fetch("https://desafio-backend-obsis.onrender.com/authors/tops/",{
         method: 'GET',
         headers: { "Content-Type": "application/json" },
       });
