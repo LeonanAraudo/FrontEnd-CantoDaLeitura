@@ -4,6 +4,7 @@ import { ref } from "vue";
 export const usaBiblioteca = defineStore("biblioteca", () => {
   const livros = ref([]);
   const autores = ref([]);
+  const topAutores = ref([])
   const error = ref(null);  
   
   const addLivro = (livro) => {
@@ -12,6 +13,10 @@ export const usaBiblioteca = defineStore("biblioteca", () => {
 
   const addAutor = (autor) => {
     autores.value.push(autor);
+  };
+
+  const addTopAutor = (autorTop) => {
+    topAutores.value.push(autorTop);
   };
 
   const fetchLivros = async () => {
@@ -47,10 +52,27 @@ export const usaBiblioteca = defineStore("biblioteca", () => {
       error.value = err.message;  
     } 
   };
-
-  const editarLivro = async (author, livroEditado) => {
+  
+  const fetchTopAutores = async () => {
+    error.value = null;
     try {
-      const resposta = await fetch(`http://127.0.0.1:8000/books/${author}/`, {
+      const response = await fetch("http://127.0.0.1:8000/authors/tops/",{
+        method: 'GET',
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!response.ok) {
+        throw new Error("Falha ao buscar os top autores");
+      }
+      const data = await response.json();
+      topAutores.value = data; 
+    } catch (err) {
+      error.value = err.message;  
+    } 
+  };
+
+  const editarLivro = async (id, livroEditado) => {
+    try {
+      const resposta = await fetch(`http://127.0.0.1:8000/books/${id}/`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(livroEditado),
@@ -60,7 +82,7 @@ export const usaBiblioteca = defineStore("biblioteca", () => {
         throw new Error("Erro ao editar o livro");
       }
 
-      const index = livros.value.findIndex((livro) => livro.id === author);
+      const index = livros.value.findIndex((livro) => livro.id === id);
       if (index !== -1) {
         livros.value[index] = { ...livros.value[index], ...livroEditado };
       }
@@ -74,11 +96,14 @@ export const usaBiblioteca = defineStore("biblioteca", () => {
   return {
     livros,
     autores,
+    topAutores,
     addLivro,
     addAutor,
     editarLivro,
     fetchLivros,
     fetchAutores,
+    fetchTopAutores,
+    addTopAutor,
     error
   };
 });

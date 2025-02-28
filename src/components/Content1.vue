@@ -67,13 +67,13 @@ const cadastrarAutorNaApi = async () => {
   try {
     const autorData = { name: novoAutor.value }; 
 
-    const resposta = await fetch("http://127.0.0.1:8000/authors/", {
+    const response = await fetch("http://127.0.0.1:8000/authors/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(autorData),
     });
 
-    if (!resposta.ok) {
+    if (!response.ok) {
       throw new Error("Erro ao cadastrar o autor");
     }
     alert("Autor cadastrado com sucesso");

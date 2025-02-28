@@ -1,9 +1,21 @@
 <template>
     <div class="container">
+        <div class="tierContainer">
+            <button @click="newModalAberto" class="buttonTops">Ranking top 5 autores 🏆</button>
+        </div>
+        <div v-if="topAuthors" class="modal">
+            <div class="classificar">
+                <div v-for="(autor, index) in store.topAutores" :key="index">
+                    <p class="colocacao">{{ index + 1 }}</p>
+                    <p class="colocados">{{ autor.name }}</p>
+                </div>
+                <div @click="newModalFechado" class="backContainer"><p class="x">X</p></div>
+            </div>
+        </div>
         <div v-for="livro in store.livros" :key="livro.id" class="card">
             <div class="autorContainer">
                 <p class="autor">
-                    {{ store.autores.find(autor => autor.id === livro.author)?.name || 'Autor desconhecido' }}
+                    {{ store.autores.find(autor => autor.id === livro.author)?.name }}
                 </p>
             </div>
             <div class="titleCard">
@@ -12,6 +24,7 @@
             <div class="editCard">
                 <p>{{ livro.data_publicação }}</p>
                 <img 
+                    class="cursor"
                     width="22" height="22" 
                     src="https://img.icons8.com/metro/26/edit.png" 
                     alt="edit" 
@@ -41,6 +54,7 @@ import { ref , onMounted} from 'vue';
 const store = usaBiblioteca();
 const modalAberto = ref(false);
 const livroSelecionado = ref({});
+const topAuthors = ref(false)
 
 const abrirEdicao = (livro) => {
     livroSelecionado.value = { ...livro }; 
@@ -48,21 +62,23 @@ const abrirEdicao = (livro) => {
 };
 
 const salvarEdicao = async () => {
-    store.editarLivro(livroSelecionado.value.id, {
-        ...livroSelecionado.value,
-        author_id: livroSelecionado.value.author 
-    });
+    store.editarLivro(livroSelecionado.value.id,livroSelecionado.value);
     modalAberto.value = false;
-
 };
-
+const newModalAberto = ()=>{
+    topAuthors.value = true
+}
+const newModalFechado = ()=>{
+    topAuthors.value = false
+}
 const fecharModal = () => {
     modalAberto.value = false;
 };
-
+console.log(store.topAutores)
 onMounted(() => {
-  store.fetchLivros(); 
-  store.fetchAutores();
+    store.fetchLivros(); 
+    store.fetchAutores();
+    store.fetchTopAutores();
 });
 
 </script>
@@ -70,12 +86,11 @@ onMounted(() => {
 <style scoped>
 .container {
     width: 100%;
-    font-family: "Montserrat";
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     gap: 60px;
     flex-wrap: wrap;
 }
@@ -87,6 +102,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    font-family: "Montserrat";
     padding: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -101,17 +117,21 @@ onMounted(() => {
 .editCard {
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
 }
 .autorContainer{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: "Montserrat";
+}
+.cursor{
+    cursor: pointer;
 }
 .input{
     width: 100%;
     height: 40px;
+    font-family: "Montserrat";
 }
 .modal {
     position: fixed;
@@ -146,5 +166,51 @@ onMounted(() => {
     border-radius: 5px;
     font-family: "Montserrat";
     font-size: 1.2vw;
+}
+.tierContainer{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.buttonTops{
+    width: 40%;
+    height: 35px;
+    background-color: black;
+    color: rgb(255, 255, 255);
+    font-family: 'Montserrat';
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.buttonTops:hover{
+    background-color: rgb(14, 14, 14);
+}
+.classificar{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    background-color: black;
+    padding-left: 40px;
+}
+.colocacao{
+    font-family: 'Saira Stencil One';
+    color: #fff;
+    font-size: 5vw;
+}
+.colocados{
+    color: #fff;
+}
+.x{
+    color: #fff;
+    cursor: pointer;
+}
+.backContainer{
+    font-size: 2vw;
+    height: 80%;
 }
 </style>
