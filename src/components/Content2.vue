@@ -217,7 +217,7 @@ onMounted(() => {
         width: 60%;
     }
     .buttonEdit{
-        height: 5vw;
+        height: 6vw;
         font-size: 2vw;
     }
     .colocacao{
@@ -225,6 +225,10 @@ onMounted(() => {
     }
     .colocados{
         font-size: 3vw;
+    }
+    .card{
+        width: 150px;
+        height: 150px;
     }
 }
 </style>

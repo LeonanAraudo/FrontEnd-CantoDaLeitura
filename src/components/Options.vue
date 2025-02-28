@@ -91,7 +91,7 @@
       width: 100%;
     }
     .content-box{
-      height: 50vw;
+      height: 70vw;
     }
     .buttons{
       width: 100%;
