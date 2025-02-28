@@ -209,4 +209,16 @@ onMounted(() => {
     font-size: 2vw;
     height: 80%;
 }
+@media(max-width: 600px){
+    .tierContainer{
+        margin-bottom: 200px;
+    }
+    .buttonTops{
+        width: 60%;
+    }
+    .buttonEdit{
+        height: 5vw;
+        font-size: 2vw;
+    }
+}
 </style>

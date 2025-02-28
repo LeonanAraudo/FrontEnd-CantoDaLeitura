@@ -114,14 +114,14 @@ const fecharCadastro = () => (cadAberto.value = false);
 
 <style scoped>
 .formulario{  
- width: 100%;
- height: 90%;
- display: flex;
- align-items: center;
- justify-content: center;
- flex-direction: column;
- gap: 20px;
- font-family: "Montserrat";
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    font-family: "Montserrat";
 
 }
 .infos{
@@ -236,5 +236,23 @@ const fecharCadastro = () => (cadAberto.value = false);
 .openCad{
     color: #fff;
     cursor: pointer;
+}
+@media(max-width: 600px){
+    .titleInput{
+        height: 4vw;
+        font-size: 2vw;
+    }
+    .specialInput{
+        height: 4vw;
+        font-size: 2vw;
+    }
+    .button{
+        width: 30%;
+        height: 3.5vw;
+        font-size: 2vw;
+    }
+    .label,.label2,.openCad,.blueText{
+        font-size: 2vw;
+    }
 }
 </style>

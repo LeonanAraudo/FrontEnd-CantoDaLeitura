@@ -95,13 +95,13 @@
     }
     .buttons{
       width: 100%;
-      height: 150px;
+      height: 100px;
       gap: 20px;
-      flex-direction: row;
     }
-    .button{
-      width: 100%;
-      height: 50%;
+    .buttons button{
+      width: 80%;
+      height: 100%;
+      font-size: 2.5vw;
     }
   }
   </style>
