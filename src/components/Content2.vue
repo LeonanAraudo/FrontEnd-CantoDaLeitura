@@ -171,7 +171,7 @@ onMounted(() => {
 .buttonTops{
     width: 30%;
     height: 35px;
-    background-color: black;
+    background: linear-gradient(45deg,#ffcc00, #cc7a00);
     color: rgb(255, 255, 255);
     font-family: 'Montserrat';
     border: none;
@@ -180,6 +180,8 @@ onMounted(() => {
     border-radius: 5px;
 }
 .buttonTops:hover{
+    transform: scale(1.1);
+    transition:all 0.3s;
     background-color: rgb(14, 14, 14);
 }
 .classificar{
