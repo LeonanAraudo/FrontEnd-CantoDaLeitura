@@ -72,7 +72,7 @@ export const usaBiblioteca = defineStore("biblioteca", () => {
 
   const editarLivro = async (id, livroEditado) => {
     try {
-      const resposta = await fetch(`http://127.0.0.1:8000/books/${id}/`, {
+      const resposta = await fetch(`https://desafio-backend-obsis.onrender.com/books/${id}/`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(livroEditado),
