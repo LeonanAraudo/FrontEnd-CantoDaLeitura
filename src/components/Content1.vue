@@ -239,16 +239,16 @@ const fecharCadastro = () => (cadAberto.value = false);
 }
 @media(max-width: 600px){
     .titleInput{
-        height: 4vw;
+        height: 7vw;
         font-size: 2vw;
     }
     .specialInput{
-        height: 4vw;
+        height: 6vw;
         font-size: 2vw;
     }
     .button{
         width: 30%;
-        height: 3.5vw;
+        height: 4.5vw;
         font-size: 2vw;
     }
     .label,.label2,.openCad,.blueText{

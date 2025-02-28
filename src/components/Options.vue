@@ -95,7 +95,7 @@
     }
     .buttons{
       width: 100%;
-      height: 100px;
+      height: 130px;
       gap: 20px;
     }
     .buttons button{
