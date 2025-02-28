@@ -7,7 +7,6 @@
             <div v-if="mudançaContent === 'content2'" class="content-box">
                 <Content2/>
             </div>
-           
         </div>
         <div class="buttons">
           <button @click="mudar('content1')">Cadastrar Livros</button>
@@ -23,9 +22,9 @@
   import { usaBiblioteca } from '@/stores/counter';
   
   const store = usaBiblioteca()
-  const loadLivros = () =>{
-    store.fetchLivros()
-  }
+
+  const loadLivros = () =>{ store.fetchLivros() }
+
   const mudançaContent = ref('content1');
   
   const mudar = (content) => {
@@ -34,6 +33,7 @@
       loadLivros()
     }
   };
+
   </script>
   
   <style scoped>
@@ -45,31 +45,29 @@
     flex-direction: row;
     margin-top: 4%;
     overflow: hidden;
-}
-
+  }
   .content {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 50%;
       height: 100%;
-    } 
-    .content-box {
+  } 
+  .content-box {
     width: 100%;
     height: 30vw; 
-
     overflow-y: auto; 
     background-color: rgba(49, 49, 49, 0.5);
-   }
-    .buttons {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-direction: column;
-      padding: 20px;
-      width: 50%;
-    }
-    button {
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    width: 50%;
+  }
+  button {
     font-family: "Montserrat";
     width: 50%;
     height: 13%;

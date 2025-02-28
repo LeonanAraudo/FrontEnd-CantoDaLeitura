@@ -1,24 +1,24 @@
 <template>
    <form class="formulario" @submit="enviarFormulario($event)">
-    <div class="infos">
-        <label class="label" for="NameBook">Título do livro</label>
-        <input class="titleInput" id="NameBook" v-model="dados.title" type="text" required placeholder="Insira o título do livro"/>
-    </div>
-    <div class="doubleInfos">
-        <div  class="infos">
-            <label class="label2" for="DateBook">Data de publicação</label>
-            <input class="specialInput" id="DateBook" name="data_publicação"  v-model="dados.data_publicação" type="date" required/>
-        </div>
         <div class="infos">
-            <label class="label2" for="AutorBook">Autor do Livro</label>
-            <select class="specialInput" name="author" id="AutorBook" required  v-model="dados.author">
-                <option v-for="autor in store.autores" key:autor.id :value="autor.id">{{ autor.name }}</option>
-            </select>
+            <label class="label" for="NameBook">Título do livro</label>
+            <input class="titleInput" id="NameBook" v-model="dados.title" type="text" required placeholder="Insira o título do livro"/>
         </div>
-    </div>
-    <div class="buttonContainer">
-        <button class="button" type="submit">Cadastrar</button>
-    </div>
+        <div class="doubleInfos">
+            <div  class="infos">
+                <label class="label2" for="DateBook">Data de publicação</label>
+                <input class="specialInput" id="DateBook" name="data_publicação"  v-model="dados.data_publicação" type="date" required/>
+            </div>
+            <div class="infos">
+                <label class="label2" for="AutorBook">Autor do Livro</label>
+                <select class="specialInput" name="author" id="AutorBook" required  v-model="dados.author">
+                    <option v-for="autor in store.autores" key:autor.id :value="autor.id">{{ autor.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="buttonContainer">
+            <button class="button" type="submit">Cadastrar</button>
+        </div>
    </form>
    <div v-if="cadAberto" class="containerAutor">
         <div class="autorForm">
@@ -35,7 +35,7 @@
         </div>
     </div>
    <div class="alingAutorCad">
-    <p class="blueText">Autor não cadastrado? <span class="openCad" @click="abrirCadastro">Cadastre aqui</span></p>
+     <p class="blueText">Autor não cadastrado? <span class="openCad" @click="abrirCadastro">Cadastre aqui</span></p>
    </div>
 </template>
 
@@ -48,7 +48,6 @@ const novoAutor = ref("");
 
 onMounted(() =>{
 store.fetchAutores()
-console.log(store.fetchAutores())
 });
 
 const dados = ref({
@@ -66,7 +65,6 @@ const cadastrarAutor = () => {
 const cadastrarAutorNaApi = async () => {
   try {
     const autorData = { name: novoAutor.value }; 
-
     const response = await fetch("http://127.0.0.1:8000/authors/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -96,9 +94,9 @@ const enviarFormulario = async (event) => {
     console.log(response)
 
     if (!response.ok) {
-      throw new Error("Erro ao cadastrar");
+      throw new Error("Erro ao cadastrar livro");
     }
-    alert("Cadastro realizado com sucesso");
+    alert("Livro cadastrado com sucesso");
     dados.value = { title: "", data_publicação: "", author: "" };
     store.addLivro(dados.value)
 } catch (erro) {
@@ -157,7 +155,6 @@ const fecharCadastro = () => (cadAberto.value = false);
     font-size: 1vw;
     border: none;
     outline: none;
-
 }
 .label{
     font-size: 1.1vw;
@@ -188,7 +185,6 @@ const fecharCadastro = () => (cadAberto.value = false);
 .button:hover{
     transition: all 0.3s;
     background-color: rgb(14, 14, 14);
-
 }
 .containerAutor {
     position: fixed;

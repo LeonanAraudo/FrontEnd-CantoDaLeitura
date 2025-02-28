@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div>
     <TelaPrincipal/>
   </div>
 </template>
@@ -9,7 +9,6 @@ import TelaPrincipal from './views/TelaPrincipal.vue';
 </script>
 
 <style>
-
 * {
   margin: 0;
   padding: 0;

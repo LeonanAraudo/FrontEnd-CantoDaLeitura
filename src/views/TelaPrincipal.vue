@@ -2,7 +2,7 @@
     <div class="body">
       <img class="fundo" src="/back.png" alt="imagem de fundo">
       <header class="container">
-       <SimpleComponent/>
+        <HeaderComponent/>
       </header>
       <div class="conteudo">
         <Options/>
@@ -11,7 +11,7 @@
   </template>
   
   <script setup>
-   import SimpleComponent from '@/components/SimpleComponent.vue';
+   import HeaderComponent from '@/components/HeaderComponent.vue';
    import Options from '@/components/Options.vue';
   </script>
   

@@ -60,21 +60,16 @@ const abrirEdicao = (livro) => {
     livroSelecionado.value = { ...livro }; 
     modalAberto.value = true;
 };
-
 const salvarEdicao = async () => {
     store.editarLivro(livroSelecionado.value.id,livroSelecionado.value);
     modalAberto.value = false;
 };
-const newModalAberto = ()=>{
-    topAuthors.value = true
-}
-const newModalFechado = ()=>{
-    topAuthors.value = false
-}
-const fecharModal = () => {
-    modalAberto.value = false;
-};
-console.log(store.topAutores)
+const newModalAberto = ()=>{ topAuthors.value = true }
+
+const newModalFechado = ()=>{ topAuthors.value = false }
+
+const fecharModal = () => { modalAberto.value = false };
+
 onMounted(() => {
     store.fetchLivros(); 
     store.fetchAutores();
@@ -174,7 +169,7 @@ onMounted(() => {
     justify-content: end;
 }
 .buttonTops{
-    width: 40%;
+    width: 30%;
     height: 35px;
     background-color: black;
     color: rgb(255, 255, 255);
@@ -204,6 +199,7 @@ onMounted(() => {
 }
 .colocados{
     color: #fff;
+    font-size: 1.2vw;
 }
 .x{
     color: #fff;
