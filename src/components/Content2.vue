@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="tierContainer">
-            <button @click="newModalAberto" class="buttonTops">Ranking autores com mais publicações 🏆</button>
+            <button @click="newModalAberto" class="buttonTops">Ranking de publicações 🏆</button>
         </div>
         <DataTable :value="store.livros" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 60rem">
             <Column field="authorName" header="Autor">
