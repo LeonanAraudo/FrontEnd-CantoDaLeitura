@@ -9,8 +9,11 @@
             </div>
         </div>
         <div class="buttons">
-          <button @click="mudar('content1')">Cadastrar Livros</button>
-          <button @click="mudar('content2')">Lista de Livros</button>
+          <button class="underline-btn" @click="mudar('content1')">Cadastrar Livros</button>
+          <button class="underline-btn" @click="mudar('content2')">Lista de Livros</button>
+        </div>
+        <div class="boxLinha">
+          <div class="linha"></div>
         </div>
     </div>
   </template>
@@ -42,47 +45,67 @@
     width: 100%;
     height: auto; 
     min-height: 50vh; 
-    flex-direction: row;
-    margin-top: 4%;
+    flex-direction: column;
     overflow: hidden;
   }
-  .content {
+  .content{
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 50%;
+      width: 100%;
       height: 100%;
-  } 
-  .content-box {
-    width: 100%;
-    height: 30vw; 
-    overflow-y: auto; 
-    background-color: rgba(49, 49, 49, 0.5);
+      order: 2;
   }
-  .buttons {
+
+.content-box {
+    width: 100%;
+    height: 100%; 
+    overflow-y: auto; 
+}
+.buttons {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    width: 50%;
-  }
-  button{
-    font-family: "Montserrat";
-    width: 50%;
-    height: 13%;
-    font-size: 1.3vw;
+    flex-direction: row;
+    width: 100%;
+}
+.boxLinha{
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.linha{
+    width: 80%;
+    height: 1px;
+    background-color: rgb(0, 0, 0);
+}
+.underline-btn {
+    font-family: 'Montserrat';
+    background: none;      
+    border: none;          
     cursor: pointer;
-    background-color: #3a3a3a;
-    color: white;
-    border: none;
-    border-radius: 4px;
-  }
-  button:hover {
-    background-color: #0a0a0a;
-    transition: all 0.3s;
-    transform: scale(1.1);
-  }
+    font-size: 18px;
+    position: relative;     
+    padding: 10px 0;
+    color: #000;        
+}
+.underline-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;              
+  height: 6px;         
+  border-radius: 5px; 
+  background-color: #8B0000; 
+  transition: width 0.3s ease; 
+}
+.underline-btn:hover::after,
+.underline-btn:focus::after {
+  width: 100%;           
+}
   @media(max-width: 600px){
     .container{
       flex-direction: column;

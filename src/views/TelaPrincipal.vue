@@ -1,6 +1,5 @@
 <template>
     <div class="body">
-      <img class="fundo" src="/back.png" alt="imagem de fundo">
       <header class="container">
         <HeaderComponent/>
       </header>

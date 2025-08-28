@@ -1,8 +1,28 @@
 <template>
     <div class="container">
         <div class="tierContainer">
-            <button @click="newModalAberto" class="buttonTops">Ranking top 5 autores 🏆</button>
+            <button @click="newModalAberto" class="buttonTops">Ranking autores com mais publicações 🏆</button>
         </div>
+        <DataTable :value="store.livros" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 60rem">
+            <Column field="authorName" header="Autor">
+                <template #body="slotProps">
+                    {{ store.autores.find(a => a.id === slotProps.data.author)?.name }}
+                </template>
+            </Column>
+            <Column field="title" header="Nome do livro" style="width: 25%"></Column>
+            <Column field="data_publicação" header="Data de publicação" style="width: 25%"></Column>
+            <Column field="representative" header="" style="width: 25%">
+            <template #body="slotProps">
+                <img 
+                    class="cursor"
+                    width="17" height="17" 
+                    src="https://img.icons8.com/metro/26/edit.png" 
+                    alt="edit" 
+                    @click="abrirEdicao(slotProps.data)"
+                />
+             </template>
+            </Column>
+        </DataTable>
         <div v-if="topAuthors" class="modal">
             <div class="classificar">
                 <div v-for="(autor, index) in store.topAutores" :key="index">
@@ -10,26 +30,6 @@
                     <p class="colocados">{{ autor.name }}</p>
                 </div>
                 <div @click="newModalFechado" class="backContainer"><p class="x">X</p></div>
-            </div>
-        </div>
-        <div v-for="livro in store.livros" :key="livro.id" class="card">
-            <div class="autorContainer">
-                <p class="autor">
-                    {{ store.autores.find(autor => autor.id === livro.author)?.name }}
-                </p>
-            </div>
-            <div class="titleCard">
-                <p>{{ livro.title }}</p>
-            </div>
-            <div class="editCard">
-                <p>{{ livro.data_publicação }}</p>
-                <img 
-                    class="cursor"
-                    width="22" height="22" 
-                    src="https://img.icons8.com/metro/26/edit.png" 
-                    alt="edit" 
-                    @click="abrirEdicao(livro)"
-                />
             </div>
         </div>
         <div v-if="modalAberto" class="modal">
@@ -50,6 +50,8 @@
 <script setup>
 import { usaBiblioteca } from '@/stores/counter';
 import { ref , onMounted} from 'vue';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 
 const store = usaBiblioteca();
 const modalAberto = ref(false);
@@ -81,18 +83,18 @@ onMounted(() => {
 <style scoped>
 .container {
     width: 100%;
+    height: 100%;
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 60px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 .card {
     width: 200px;
     height: 200px;
-    background-color: #fff;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -163,10 +165,10 @@ onMounted(() => {
     font-size: 1.2vw;
 }
 .tierContainer{
-    width: 90%;
+    width: 70%;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: baseline;
 }
 .buttonTops{
     width: 30%;

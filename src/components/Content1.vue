@@ -1,25 +1,30 @@
 <template>
-   <form class="formulario" @submit="enviarFormulario($event)">
-        <div class="infos">
-            <label class="label" for="NameBook">Título do livro</label>
-            <input class="titleInput" id="NameBook" v-model="dados.title" type="text" required placeholder="Insira o título do livro"/>
+    <div class="containerContent1">
+        <form class="formulario" @submit="enviarFormulario($event)">
+             <div class="infos">
+                 <label class="label" for="NameBook">Título do livro</label>
+                 <input class="titleInput" id="NameBook" v-model="dados.title" type="text" required placeholder="Insira o título do livro"/>
+             </div>
+             <div class="doubleInfos">
+                 <div  class="infos">
+                     <label class="label2" for="DateBook">Data de publicação</label>
+                     <input class="specialInput" id="DateBook" name="data_publicação"  v-model="dados.data_publicação" type="date" required/>
+                 </div>
+                 <div class="infos">
+                     <label class="label2" for="AutorBook">Autor do Livro</label>
+                     <select class="specialInput" name="author" id="AutorBook" required  v-model="dados.author">
+                         <option v-for="autor in store.autores" key:autor.id :value="autor.id">{{ autor.name }}</option>
+                     </select>
+                 </div>
+             </div>
+             <div class="buttonContainer">
+                 <button class="button" type="submit">Cadastrar</button>
+             </div>
+        </form>
+        <div class="alingAutorCad">
+          <p class="blueText">Autor não cadastrado? <span class="openCad" @click="abrirCadastro">Cadastre aqui</span></p>
         </div>
-        <div class="doubleInfos">
-            <div  class="infos">
-                <label class="label2" for="DateBook">Data de publicação</label>
-                <input class="specialInput" id="DateBook" name="data_publicação"  v-model="dados.data_publicação" type="date" required/>
-            </div>
-            <div class="infos">
-                <label class="label2" for="AutorBook">Autor do Livro</label>
-                <select class="specialInput" name="author" id="AutorBook" required  v-model="dados.author">
-                    <option v-for="autor in store.autores" key:autor.id :value="autor.id">{{ autor.name }}</option>
-                </select>
-            </div>
-        </div>
-        <div class="buttonContainer">
-            <button class="button" type="submit">Cadastrar</button>
-        </div>
-   </form>
+    </div>
    <div v-if="cadAberto" class="containerAutor">
         <div class="autorForm">
             <h3>Cadastrar autor</h3>
@@ -34,9 +39,6 @@
             <button @click="fecharCadastro" class="buttons">Cancelar</button>
         </div>
     </div>
-   <div class="alingAutorCad">
-     <p class="blueText">Autor não cadastrado? <span class="openCad" @click="abrirCadastro">Cadastre aqui</span></p>
-   </div>
 </template>
 
 <script setup>
@@ -111,14 +113,26 @@ const fecharCadastro = () => (cadAberto.value = false);
 
 
 <style scoped>
-.formulario{  
-    width: 100%;
-    height: 90%;
+.containerContent1{
+     width: 100%;
+    height: 100%;
+    padding: 20px;
+    margin-top: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 20px;
+    flex-wrap: wrap;
+}
+.formulario{  
+    width: 50%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 60px;
     font-family: "Montserrat";
 
 }
@@ -131,36 +145,41 @@ const fecharCadastro = () => (cadAberto.value = false);
     color: #fff;
 }
 .doubleInfos{
-    width: 70%;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    gap: 10%;
 }
 .titleInput{
-    width: 60%;
+    width: 90%;
     height: 2.5vw;
     font-size: 1vw;
     border-radius: 5px;
     border: none;
     outline: none;
     padding-left: 15px;
+    background-color: #D0D0D0;
 }
 .specialInput{
-    width: 70%;
+    width: 100%;
     height: 2.5vw;
     border-radius: 5px;
     font-size: 1vw;
     border: none;
     outline: none;
+    background-color: #D0D0D0;
 }
 .label{
     font-size: 1.1vw;
-    width: 60%;
+    width: 88%;
+    color: #000;
 }
 .label2{
     font-size: 1.1vw;
-    width: 70%;
+    width: 95%;
+    color: #000;
 }
 .buttonContainer{
     width: 100%;
@@ -170,7 +189,7 @@ const fecharCadastro = () => (cadAberto.value = false);
     margin-top: 10px;
 }
 .button{
-    background-color: black;
+    background-color: #370000;
     color: #fff;
     border: none;
     width: 30%;
@@ -182,7 +201,7 @@ const fecharCadastro = () => (cadAberto.value = false);
 }
 .button:hover{
     transition: all 0.3s;
-    background-color: rgb(14, 14, 14);
+    background-color:#a30303;
 }
 .containerAutor {
     position: fixed;
@@ -210,10 +229,11 @@ const fecharCadastro = () => (cadAberto.value = false);
     width: 100%;
     height: 40px;
     margin-bottom: 30px;
+    padding-left: 5px;
 }
 .buttons{
     font-family: "Montserrat";
-    background-color: black;
+    background-color: #370000;
     color: #fff;
     border: none;
     width: 100%;
@@ -225,14 +245,15 @@ const fecharCadastro = () => (cadAberto.value = false);
 }
 
 .blueText{
-    color: rgb(122, 122, 122);
+    color: rgb(0, 0, 0);
     font-family: "Montserrat";
-    text-align: end;
+    text-align: center;
     margin-right: 10px;
     font-size: 1vw;
 }
 .openCad{
-    color: #fff;
+    font-weight: bold;
+    color: #370000;
     cursor: pointer;
 }
 @media(max-width: 600px){

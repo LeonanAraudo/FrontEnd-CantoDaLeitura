@@ -12,12 +12,13 @@
 <style scoped>
 .container{
   width: 100%;
-  height: 90px;
+  height: 60px;
   margin-bottom: 20px;
+  background-color: #370000;
 }
 .logo{
-  width: 17vw;
-  height: 6vw;
+  width: 14vw;
+  height: 4.3vw;
   margin-left: 20px;
 }
 .imgLogo{
