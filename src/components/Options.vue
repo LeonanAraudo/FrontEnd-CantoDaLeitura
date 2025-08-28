@@ -111,20 +111,22 @@
       flex-direction: column;
     }
     .content{
+      margin-top: 50px;
       width: 100%;
     }
     .content-box{
-      height: 70vw;
+      height: 100%;
     }
     .buttons{
       width: 100%;
-      height: 130px;
-      gap: 20px;
     }
     .buttons button{
       width: 80%;
       height: 100%;
-      font-size: 2.5vw;
+      font-size: 18px;
+    }
+    .underline-btn::after{
+      height: 4px;
     }
   }
   </style>

@@ -17,12 +17,14 @@
   <style scoped>
   .body{
     width: 100%;
-    height: 100%;
+    height: 100vh;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     overflow: hidden;
-
+  }
+  .conteudo{
+    height: 100%;
   }
   .fundo{
     width: 100%;

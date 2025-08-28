@@ -3,7 +3,14 @@
         <div class="tierContainer">
             <button @click="newModalAberto" class="buttonTops">Ranking de publicações 🏆</button>
         </div>
-        <DataTable :value="store.livros" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 60rem">
+        <DataTable 
+            :value="store.livros" 
+            paginator :rows="5" 
+            :rowsPerPageOptions="[5, 10, 20, 50]" 
+            class="table" 
+            tableStyle="min-width: 60rem"
+            
+        >
             <Column field="authorName" header="Autor">
                 <template #body="slotProps">
                     {{ store.autores.find(a => a.id === slotProps.data.author)?.name }}
@@ -12,15 +19,15 @@
             <Column field="title" header="Nome do livro" style="width: 25%"></Column>
             <Column field="data_publicação" header="Data de publicação" style="width: 25%"></Column>
             <Column field="representative" header="" style="width: 25%">
-            <template #body="slotProps">
-                <img 
-                    class="cursor"
-                    width="17" height="17" 
-                    src="https://img.icons8.com/metro/26/edit.png" 
-                    alt="edit" 
-                    @click="abrirEdicao(slotProps.data)"
-                />
-             </template>
+                <template #body="slotProps">
+                    <img 
+                        class="cursor"
+                        width="17" height="17" 
+                        src="https://img.icons8.com/metro/26/edit.png" 
+                        alt="edit" 
+                        @click="abrirEdicao(slotProps.data)"
+                    />
+                </template>
             </Column>
         </DataTable>
         <div v-if="topAuthors" class="modal">
@@ -214,11 +221,8 @@ onMounted(() => {
     height: 80%;
 }
 @media(max-width: 600px){
-    .tierContainer{
-        margin-bottom: 200px;
-    }
     .buttonTops{
-        width: 60%;
+        width: 90%;
     }
     .buttonEdit{
         height: 6vw;
@@ -233,6 +237,13 @@ onMounted(() => {
     .card{
         width: 150px;
         height: 150px;
+    }
+    .table{
+        min-width: 5rem !important;
+        background-color: red;
+    }
+     :deep(.p-datatable-table) {
+        min-width: 100% !important;
     }
 }
 </style>
