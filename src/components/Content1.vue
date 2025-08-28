@@ -23,7 +23,7 @@
    <div v-if="cadAberto" class="containerAutor">
         <div class="autorForm">
             <h3>Cadastrar autor</h3>
-            <form @submit.prevent="cadastrarAutor" > 
+            <form @submit.prevent="cadastrarAutorNaApi" > 
                 <div>
                     <input v-model="novoAutor" class="autorInput" type="text" placeholder="Escreva o nome do autor"/>
                 </div>
@@ -56,12 +56,6 @@ const dados = ref({
   author: "",
 });
 
-const cadastrarAutor = () => {
-  const autor = { id: Date.now(), name: novoAutor.value };
-  store.addAutor(autor);
-  cadastrarAutorNaApi()
-};
-
 const cadastrarAutorNaApi = async () => {
   try {
     const autorData = { name: novoAutor.value }; 
@@ -74,9 +68,13 @@ const cadastrarAutorNaApi = async () => {
     if (!response.ok) {
       throw new Error("Erro ao cadastrar o autor");
     }
+
+    const autorCriado = await response.json(); 
+    store.addAutor(autorCriado); 
     alert("Autor cadastrado com sucesso");
     novoAutor.value = "";
     cadAberto.value = false;
+
   } catch (erro) {
     alert(erro.message);
   }
