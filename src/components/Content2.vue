@@ -6,10 +6,10 @@
         <DataTable 
             :value="store.livros" 
             paginator :rows="5" 
+            stripedRows 
             :rowsPerPageOptions="[5, 10, 20, 50]" 
             class="table" 
-            tableStyle="min-width: 60rem"
-            
+            tableStyle="min-width: 60rem"   
         >
             <Column field="authorName" header="Autor">
                 <template #body="slotProps">
@@ -161,7 +161,7 @@ onMounted(() => {
 }
 .buttonEdit{
     font-family: "Montserrat";
-    background-color: black;
+    background-color: #370000;
     color: #fff;
     border: none;
     width: 100%;
@@ -220,6 +220,7 @@ onMounted(() => {
     font-size: 2vw;
     height: 80%;
 }
+
 @media(max-width: 600px){
     .buttonTops{
         width: 90%;
@@ -240,7 +241,6 @@ onMounted(() => {
     }
     .table{
         min-width: 5rem !important;
-        background-color: red;
     }
      :deep(.p-datatable-table) {
         min-width: 100% !important;

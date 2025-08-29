@@ -211,6 +211,7 @@ const fecharCadastro = () => (cadAberto.value = false);
     outline: none;
     padding-left: 15px;
     background-color: #D0D0D0;
+    color: #000;
 }
 
 .specialInput {
@@ -221,6 +222,7 @@ const fecharCadastro = () => (cadAberto.value = false);
     border: none;
     outline: none;
     background-color: #D0D0D0;
+    color: #000;
 }
 
 .label {

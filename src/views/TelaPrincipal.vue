@@ -15,6 +15,7 @@
   </script>
   
   <style scoped>
+  
   .body{
     width: 100%;
     height: 100vh;
@@ -22,6 +23,7 @@
     padding: 0;
     box-sizing: border-box;
     overflow: hidden;
+    background-color: #fff;
   }
   .conteudo{
     height: 100%;
