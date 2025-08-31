@@ -6,6 +6,8 @@ Teste a aplicação: https://canto-da-leitura.vercel.app/
 
 Repositório backend: https://github.com/LeonanAraudo/BackEnd-CantoDaLeitura
 
+⚠️O primeiro cadastro de autor pode demorar um pouco.
+
 ## 🚀 Tecnologias Utilizadas
 
 ### Core
