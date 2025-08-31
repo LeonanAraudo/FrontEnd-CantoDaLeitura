@@ -358,14 +358,14 @@ const fecharCadastro = () => (cadAberto.value = false);
     }
     
     .button {
-        width: 50%;
-        height: 3vh;
-        font-size: 4vw;
+        width: 50% ;
+        height: 3vh ;
+        font-size: 4vw ;
     }
     
     .buttons {
-        height: 6vw;
-        font-size: 3vw;
+        height: 6vw !important;
+        font-size: 3vw !important;
     }
     
     .label, 
