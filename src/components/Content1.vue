@@ -72,7 +72,13 @@
                     />
                 </div>
                 <div>
-                    <button class="buttons" type="submit">Cadastrar</button>
+                     <Button
+                        type="submit"
+                        label="Cadastrar"
+                        icon="pi pi-search"
+                        :loading="loading"
+                        class="buttons"
+                        />
                 </div>
             </form>
             
@@ -84,11 +90,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { usaBiblioteca } from '@/stores/counter';
+import Button from 'primevue/button';
 
 const store = usaBiblioteca();
 const novoAutor = ref("");
 const cadAberto = ref(false);
-
+const loading = ref(false)
 const dados = ref({
     title: "",
     data_publicação: "",
@@ -100,6 +107,7 @@ onMounted(() => {
 });
 
 const cadastrarAutorNaApi = async () => {
+    loading.value =true;
     try {
         const autorData = { name: novoAutor.value };
         
@@ -124,6 +132,8 @@ const cadastrarAutorNaApi = async () => {
 
     } catch (erro) {
         alert(erro.message);
+    }finally{
+        loading.value = false
     }
 };
 
@@ -294,15 +304,15 @@ const fecharCadastro = () => (cadAberto.value = false);
 }
 
 .buttons {
-    font-family: "Montserrat";
-    background-color: #370000;
-    color: #fff;
-    border: none;
-    width: 100%;
-    height: 2.5vw;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1.2vw;
+    font-family: "Montserrat" !important;
+    background-color: #370000 !important;
+    color: #fff !important;
+    border: none !important;
+    width: 100% !important;
+    height: 2.5vw !important;
+    cursor: pointer !important;
+    border-radius: 5px !important;
+    font-size: 1.2vw !important;
 }
 
 .blueText {
